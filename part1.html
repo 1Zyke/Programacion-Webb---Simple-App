@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veterinaria</title>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+
+  />
+
+  <link rel="stylesheet" href="main.css">
+
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        .noVisible{
+            display: none;
+        }
+
+        .vete {
+            position: relative;
+            width: 50%;
+        }
+
+        .nav-wrapper {
+            background-color: #1de9b6;
+        }
+
+        #texto {
+            font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            width: 70%;
+        }
+
+
+    
+    
+    </style>
+
+
+
+        <div id="contenedor_carga">
+            <div id="carga"></div>
+        </div>
+    
+
+<nav>
+    <div class="nav-wrapper">
+        
+      <a href="#!" class="brand-logo"></a>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <ul class="right hide-on-med-and-down">
+        <li><a id="purple" href="part1.html">Part 1</a></li>
+        <li><a id="purple" href="part2.html">Part 2</a></li>
+      </ul>
+    </div>
+  </nav>
+</head>
+<body onload="cargarPartida();">
+
+    <div class="container">
+        <h3><i class="material-icons">pets</i> Veterinian - ITLA</h3>
+        <hr/>
+        <div>
+            <img id="animado" class="vete" src="vete.webp" alt="">
+            <h5 id="texto" class="btn animate__animated animate__backInDown">In this section we have animals rescued from the street and from different places that we take care of, waiting for the adoption of some of them.</h5>
+            <div class="">
+                <a href="index.html" class="btn animate__animated animate__backInUp">
+                    <i class="material-icons">arrow_back</i>
+                    Home</a>
+                </div>
+        </div>
+
+
+
+
+        <div id="form_edit" class="noVisible">   
+            <h4>Animals Data</h4>
+            <div>
+                <label>Code:</label>
+                <input type="text" name="data" id="code">
+            </div>
+
+            <div>
+                <label>Name:</label>
+                <input type="text" name="data" id="name">
+            </div>
+
+            <div>
+                <label>Type:</label>
+                <select name="data" id="type" class="browser-default">
+                    <option value="Dog">Dog</option>
+                    <option value="Cat">Cat</option>
+                    <option value="Bird">Bird</option>
+                    <option value="Others">Others/option>
+                </select>
+            </div>
+
+            <div>
+                <label>Color:</label>
+                <input type="color" name="data" id="color">
+            </div>
+            <div>
+                <label>Date of Birth:</label>
+                <input type="date" name="data" id="date_birth">
+            </div>
+            <div>
+                <label>Gender:</label>
+                <select name="data" id="gender" class="browser-default">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+            <div>
+                <label>Location:</label>
+                <input type="text" name="data" id="location">
+            </div>
+            <div>
+                <label>Phone:</label>
+                <input type="phone" name="data" id="phone">
+            </div>
+            <div>
+                <label>Email:</label>
+                <input type="email" name="data" id="email">
+            </div>
+            <div>
+                <label>Description:</label>
+                <input name="data" id="description">
+            </div>
+            
+
+            <div class="center-align">
+                <button onclick="save();" class="btn" id="btn-save">Save</button>
+            </div>
+
+
+
+        </div>
+        <div id="form_list">
+            <div class="right-align">
+    
+            <button onclick="nuevo();" tittle="Add Animal" class="btn-floating btn-large waves-effect waves-light red">
+                <i class="material-icons">add</i></button>
+            </div>
+            <h4 class="animals">Animals Encountered</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Color</th>
+                        <th>Date of Birth</th>
+                        <th>Gender</th>
+                        <th>Location</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody id="dataTable">
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    
+
+    
+
+
+    <script>
+
+        var db_datos = [];
+
+
+
+
+        function nuevo() {
+
+            if(edit_item == null) {
+                var campos = document.getElementsByName("data");
+                for (var i = 0; i < campos.length; i++) {
+                    campos[i].value = "";
+                }
+            }
+            document.getElementById("form_edit").setAttribute("class","")
+            document.getElementById("form_list").setAttribute("class","noVisible")
+        }
+
+        function list() {
+            document.getElementById("form_edit").setAttribute("class","noVisible")
+            document.getElementById("form_list").setAttribute("class","")
+        }
+
+        var edit_item = null;
+
+        function editar(index) {
+            edit_item = index;
+            nuevo();
+            var data = db_datos[index];
+            campos = document.getElementsByName("data");
+            for (var i = 0; i < campos.length; i++) {
+                campos[i].value = data[campos[i].id];
+            }
+        }
+
+        function save() {
+            obj = {};
+            campos = document.getElementsByName("data");
+            for(var x=0; x < campos.length; x++) {
+                obj[campos[x].id] = campos[x].value;
+            }
+
+            if(edit_item == null) {
+                db_datos.push(obj);
+            } else {
+                db_datos[edit_item] = obj;
+                edit_item = null;
+            }
+
+            list();
+            showData();
+
+            var tmp_data = JSON.stringify(db_datos);
+            localStorage.setItem("db_datos", tmp_data);
+        }
+
+        function make_td(text) {
+            var td = document.createElement("td");
+            td.innerHTML = text;
+            return td;
+        }
+
+        function showData() {
+            table = document.getElementById("dataTable");
+            table.innerHtml = "";
+
+            db_datos.forEach(function(fila){
+                tr = document.createElement("tr");
+
+                tr.appendChild(make_td(fila.code));
+                tr.appendChild(make_td(fila.name));
+                tr.appendChild(make_td(fila.type));
+                tr.appendChild(make_td(fila.color));
+                tr.appendChild(make_td(fila.date_birth));
+                tr.appendChild(make_td(fila.gender));
+                tr.appendChild(make_td(fila.location));
+                tr.appendChild(make_td(fila.phone));
+                tr.appendChild(make_td(fila.email));
+                tr.appendChild(make_td(fila.description));
+
+                td = document.createElement("td");
+                btn = document.createElement("button");
+                btn.setAttribute("onclick","editar("+db_datos.indexOf(fila)+")");
+                btn.setAttribute("class","btn-floating btn-small waves-effect waves-light red");
+                btn.innerHTML = "<i class='material-icons'>edit</i>";
+                td.appendChild(btn);
+                tr.appendChild(td);
+
+                btn = document.createElement("button");
+                btn.setAttribute("onclick","borrar("+db_datos.indexOf(fila)+")");
+                btn.setAttribute("class","btn-floating btn-small waves-effect waves-light red");
+                btn.innerHTML = "<i class='material-icons'>delete</i>";
+                td.appendChild(btn);
+
+                btn = document.createElement("button");
+                btn.setAttribute("onclick","imprimir("+db_datos.indexOf(fila)+")");
+                btn.setAttribute("class","btn-floating btn-small waves-effect waves-light red");
+                btn.innerHTML = "<i class='material-icons'>print</i>";
+                td.appendChild(btn);
+
+
+                tr.appendChild(td);
+
+
+
+
+                table.appendChild(tr);
+            });
+            
+        }
+
+        function imprimir(index){
+            var data = db_datos[index];
+            
+            div = document.createElement("div");
+            div.innerHTML = "<h1>Animal Data</h1>";
+            div.innerHTML += "<p>Code: "+data.code+"</p>";
+            div.innerHTML += "<p>Name: "+data.name+"</p>";
+            div.innerHTML += "<p>Type: "+data.type+"</p>";
+            div.innerHTML += "<p>Color: "+data.color+"</p>";
+            div.innerHTML += "<p>Date of Birth: "+data.date_birth+"</p>";
+            div.innerHTML += "<p>Gender: "+data.gender+"</p>";
+            div.innerHTML += "<p>Location: "+data.location+"</p>";
+            div.innerHTML += "<p>Phone: "+data.phone+"</p>";
+            div.innerHTML += "<p>Email: "+data.email+"</p>";
+            div.innerHTML += "<p>Description: "+data.description+"</p>";
+
+            var headstr = `<html><head><title></title>
+
+                <style>
+                body {
+                    visibility: hidden;
+                    background: #cccccc;
+                }
+
+                @media print {
+                    @page {
+                        size: A4;
+                        margin: 0;
+                    }
+                    body {
+                        margin: 1.6cm;
+                        visibility: visible;
+                        background: white;
+                    }
+                }
+                </style>
+
+                
+
+                </head><body class='print'>`;
+            var footstr = "</body";
+            var newstr = div.innerHTML;
+            var oldstr = document.body.innerHTML;
+            document.body.innerHTML = headstr + newstr + footstr;
+            window.print();
+            document.body.innerHTML = oldstr;
+            return false;
+        }
+        
+
+        function borrar(index){
+            if(confirm("Do you want to delete this animal?")){
+                db_datos.splice(index, 1);
+                showData();
+                var tmp_data = JSON.stringify(db_datos);
+                localStorage.setItem("db_datos", tmp_data);
+            }
+        }
+
+        function cargarPartida(){
+            var contenedor = document.getElementById("contenedor_carga");
+
+            contenedor.style.visibility = "hidden";
+            contenedor.style.opacity = '0';
+
+            var tmp_data = localStorage.getItem("db_datos");
+            if(tmp_data != null){
+                db_datos = JSON.parse(tmp_data);
+                showData();
+            }
+        }
+
+        
+        
+
+    </script>
+
+    <script src="main.js"></script>
+
+
+    
+
+
+
+</body>
+
+</html>

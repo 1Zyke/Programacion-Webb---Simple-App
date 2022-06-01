@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarea 2</title>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="main.css">
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    
+
+
+</head>
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+
+<body>
+
+    <style>
+        #purple {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+
+        @keyframes mover{
+            0%{
+                transform: translate(100%);
+            }
+        }
+
+        
+
+        #texto {
+            width: 80%;
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            background: -webkit-linear-gradient(#ff0000, #7686fd);
+            -webkit-background-clip: text;
+
+            
+        }
+
+        .nav-wrapper {
+            background-color: #1de9b6;
+        }
+
+        #itla {
+            position: relative;
+            width: 70%;
+            padding-top: 12px;
+            border-radius: 30px;
+            cursor: pointer;
+
+            display: inline-block;
+            margin: 0 0.5rem;
+
+            animation: backInUp; /* referring directly to the animation's @keyframe declaration */
+            animation-duration: 1s; /* don't forget to set a duration! */
+        }
+
+        #icono {
+            display: inline-block;
+            margin: 0 0.5rem;
+
+            animation: backInUp; /* referring directly to the animation's @keyframe declaration */
+            animation-duration: 1s; /* don't forget to set a duration! */
+        }
+
+        .github {
+            position: relative;
+            width: 5rem;
+            margin: 0;
+            padding: 0;
+            padding-top: 10px;
+            
+        }
+
+        .instagram {
+            position: relative;
+            width: 6.5rem;
+            margin: 0;
+            padding: 0;
+            padding-left: 30px;
+        }
+
+        .page {
+            position: relative;
+            width: 7rem;
+            margin: 0;
+            padding: 0;
+            padding-top: 10px;
+            left: 10px;
+            top: 15px;
+        }
+
+
+
+        
+
+
+    
+    </style>
+
+    <div id="contenedor_carga">
+        <div id="carga"></div>
+    </div>
+
+
+<nav>
+    <div class="nav-wrapper">
+      <a href="#!" class="brand-logo"></a>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <ul class="right hide-on-med-and-down">
+        <li><a id="purple" href="part1.html">Part 1</a></li>
+        <li><a id="purple" href="part2.html">Part 2</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <a href="https://github.com/1Zyke">
+    <img id="icono" class="github" src="github-brands.svg" alt="">
+    </a>
+    <a href="https://www.instagram.com/itz.lorenzz/">
+        <img id="icono" class="instagram" src="instagram-brands.svg" alt="">
+    </a>
+    <a href="https://tourmaline-chaja-54b62b.netlify.app/">
+        <img id="icono" class="page" src="website.png" alt="">
+    </a>
+
+ 
+
+  <header class="bg-animate">
+    <div class="container">
+        <h3 id="purple">Welcome to Tarea 2</h3>
+        <hr>
+        <h4 id="purple">Select the option where you want to visit:</h4>
+        <p>
+            <a class="btn purple darken-4" href="part1.html">Page 1</a>
+        </p>
+        <p>
+            <a class="btn purple darken-4" href="part2.html">Page 2</a>
+        </p>
+        <a href="https://itla.edu.do/">
+            <img id="itla" class="" src="itla.webp" alt="">
+        </a>
+    </div>
+</header>
+
+
+
+    <script>
+        window.onload = function() {
+            var contenedor = document.getElementById("contenedor_carga");
+
+            contenedor.style.visibility = "hidden";
+            contenedor.style.opacity = '0';
+        }
+    </script>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+</body>
+</html>

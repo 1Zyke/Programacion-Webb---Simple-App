@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplicacion de los colores</title>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+    <style>
+        .color_red {background-color: red !important; color: white;}
+        .color_green {background-color: green !important; color: white;}
+        .color_blue {background-color: blue !important; color: white;}
+
+    </style>
+
+</head>
+<body onload="configurar();">
+
+    <nav>
+        <div class="nav-wrapper">
+          <a href="#!" class="brand-logo"></a>
+          <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+          <ul class="right hide-on-med-and-down">
+            <li><a id="purple" href="part1.html">Part 1</a></li>
+            <li><a id="purple" href="part2.html">Part 2</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <div>
+          <i class="icono fas fa-check-square"></i>
+      </div>
+
+
+    <div class="container" >
+        <h3>Type a colour in the grid</h3>
+        <table id="tblArena"></table>
+
+        <table>
+            <tr>
+                <td>Rojo: <span id="can_rojo">##</span></td>
+                <td>Verde: <span id="can_verde">##</span></td>
+                <td>Azul: <span id="can_azul">##</span></td>
+            </tr>
+        </table>
+        <div class="">
+            <a href="index.html" class="btn">
+                <i class="material-icons">arrow_back</i>
+                Home</a>
+        </div>
+    </div>
+
+    
+    <script>
+        function configurar(){
+
+    var arena = document.getElementById("tblArena");
+    for (var x=0; x<5; x++){
+        var fila = document.createElement("tr");
+        for (var y=0; y< 3; y++){
+            var col = document.createElement("td");
+            var inp = document.createElement("input");
+            inp.setAttribute("onkeyup", "procesar()");
+            col.appendChild(inp);
+            fila.appendChild(col);
+        }
+        arena.appendChild(fila);
+    }
+}
+
+    function procesar() {
+        var cant_rojo = 0;
+        var cant_verde = 0; 
+        var cant_azul = 0;
+
+        var todos = document.getElementsByTagName("input");
+        for (var x = 0; x < todos.length; x++) {
+
+            todos[x].setAttribute("class", "");
+
+            var color = todos[x].value.toLocaleLowerCase();
+            if (color == "rojo"){
+                cant_rojo++;
+                todos[x].setAttribute("class", "color_red");
+            }
+            else if (color == "verde"){
+                cant_verde++;
+                todos[x].setAttribute("class", "color_green");
+            }
+            else if (color == "azul"){
+                cant_azul++;
+                todos[x].setAttribute("class", "color_blue");
+            }
+        }
+
+        document.getElementById("can_rojo").innerHTML = cant_rojo;
+        document.getElementById("can_verde").innerHTML = cant_verde;
+        document.getElementById("can_azul").innerHTML = cant_azul;
+
+        
+    }
+
+
+    </script>
+</body>
+</html>
